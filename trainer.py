@@ -34,10 +34,8 @@ class trainer():
             self.a.upd(self.lr)
             if i%100==0:
                 print(f"epoch={i}: loss={self.mse}")
-            if not np.sum(self.y!=(self.y_pred==1)):
+            if not np.sum(self.y!=(self.y_pred>0.5)):
                 break
-    def print(self,all=False):
-        if all:
-            print(self.a.l3.z[0,0],self.a.l3.y[0,0])
+    def print(self):
         print(f"accuracy: {np.sum(self.y==(self.a.y_pred>0.5))}/{self.x.shape[0]}")
         show_result(self.x,self.y,self.a.y_pred>0.5)
