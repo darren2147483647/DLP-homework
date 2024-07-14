@@ -17,7 +17,9 @@ class model():
         tmp = self.l3.back(grad)
         tmp = self.l2.back(tmp)
         tmp = self.l1.back(tmp)
-    def upd(self,lr=0.01):
-        self.l1.update(lr)
-        self.l2.update(lr)
-        self.l3.update(lr)
+    def upd(self,lr=0.01,lambd=0.01):
+        self.l1.update(lr,lambd)
+        self.l2.update(lr,lambd)
+        self.l3.update(lr,lambd)
+    def weight(self):
+        return self.l1.weight()+self.l2.weight()+self.l3.weight()

@@ -20,22 +20,23 @@ def show_result(x,y,pred_y):
     plt.show()
 #
 class trainer():
-    def __init__(self,x,y,lr=0.01):
+    def __init__(self,x,y,lr=0.01,lambd=0.01):
         self.x=x
         self.y=y
         self.lr=lr
+        self.lambd=lambd
         self.a=model(x)
     def train(self,epoch=100):
         for i in range(epoch):
             self.y_pred=self.a.forward()
             self.mse=np.sum((self.y_pred-self.y)**2)/self.x.shape[0]
+            self.loss=self.mse+self.lambd*self.a.weight()
             self.grad=(self.y_pred-self.y)*2.0/self.x.shape[0]
             self.a.back(self.grad)
-            self.a.upd(self.lr)
+            self.a.upd(self.lr,self.lambd)
             if i%1==0:
-                print(f"epoch={i}: loss={self.mse}")
+                print(f"epoch={i}: accuracy: {np.sum(self.y==(self.a.y_pred>0.5))}/{self.x.shape[0]} loss={self.loss} mse={self.mse}")
     def print(self,all=False):
         if all:
-            print(self.a.l3.z[0,0],self.a.l3.y[0,0])
-        print(f"accuracy: {np.sum(self.y==(self.a.y_pred>0.5))}/{self.x.shape[0]}")
+            print(self.a.l3.z[0,0],self.a.l3.y[0,0],self.a.weight())
         show_result(self.x,self.y,self.a.y_pred>0.5)

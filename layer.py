@@ -26,6 +26,8 @@ class layer():
         self.w_gradient=np.matmul(self.x.T,tmp)
         self.b_gradient=tmp.sum(axis=0, keepdims=True)
         return np.matmul(tmp,self.w.T)
-    def update(self,lr=0.01):
-        self.w-=lr*self.w_gradient
-        self.b-=lr*self.b_gradient
+    def update(self,lr=0.01,lambd=0.01):
+        self.w-=lr*self.w_gradient+lambd*2.0*self.w
+        self.b-=lr*self.b_gradient+lambd*2.0*self.b
+    def weight(self):
+        return np.matmul(self.w.T,self.w).sum()+self.b.sum()
