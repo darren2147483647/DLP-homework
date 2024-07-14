@@ -38,6 +38,6 @@ elif task==2:
     x,y=generate_XOR_easy()
 #
 if __name__=="__main__":
-    nn=trainer(x,y,0.01)
-    nn.train(100)
+    nn=trainer(x,y,0.1)
+    nn.train(100000)
     nn.print(1)

@@ -32,8 +32,10 @@ class trainer():
             self.grad=(self.y_pred-self.y)*2.0/self.x.shape[0]
             self.a.back(self.grad)
             self.a.upd(self.lr)
-            if i%1==0:
+            if i%100==0:
                 print(f"epoch={i}: loss={self.mse}")
+            if not np.sum(self.y!=(self.y_pred==1)):
+                break
     def print(self,all=False):
         if all:
             print(self.a.l3.z[0,0],self.a.l3.y[0,0])
