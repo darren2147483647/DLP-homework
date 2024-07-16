@@ -17,6 +17,7 @@ class layer():
         self.n=sample_size
     def forword(self,input):
         self.x=input
+        self.n=self.x.shape[0]
         self.xw=np.matmul(self.x,self.w)
         self.b_expend=np.tile(self.b, (self.n, 1))
         self.z=self.xw+self.b_expend

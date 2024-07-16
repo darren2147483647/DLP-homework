@@ -29,15 +29,29 @@ def generate_XOR_easy():
         labels.append(1)
     return np.array(inputs), np.array(labels).reshape(21,1)
 
-#設定資料
-task=1
-x,y=np.array([[0.5,0.8],[0.6,0.2],[0.5,0.3],[0.1,0.7]]),np.array([0,1,1,0]).reshape(4,1)
-if task==1:
-    x,y=generate_linear(n=100)
-elif task==2:
-    x,y=generate_XOR_easy()
+def generate_any0(s=10):
+    import numpy as np
+    inputs = []
+    labels = []
+    for i in range(s+1):
+        for j in range(s+1):
+            inputs.append([1.0/s*i,1.0/s*j])
+            labels.append(0)
+    return np.array(inputs), np.array(labels).reshape((s+1)**2,1)
 #
 if __name__=="__main__":
-    nn=trainer(x,y,0.5)
+    #設定資料
+    task=int(input("1: generate_linear | 2: generate_XOR_easy"))
+    x,y=np.array([[0.5,0.8],[0.6,0.2],[0.5,0.3],[0.1,0.7]]),np.array([0,1,1,0]).reshape(4,1)
+    if task==1:
+        x,y=generate_linear(n=100)
+    elif task==2:
+        x,y=generate_XOR_easy()
+    nn=trainer(x,y,0.8)
     nn.train(100000)
     nn.print()
+    nn.test(x,y)
+    f=int(input("show distribution of the data prediction? 1: yes | 2: no"))
+    if f==1:
+        x,y=generate_any0(10)
+        nn.test(x,y,1)

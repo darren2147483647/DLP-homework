@@ -21,3 +21,8 @@ class model():
         self.l1.update(lr)
         self.l2.update(lr)
         self.l3.update(lr)
+    def test(self,x):
+        tmp = self.l1.forword(x)
+        tmp = self.l2.forword(tmp)
+        self.y_pred = self.l3.forword(tmp)
+        return self.y_pred
