@@ -1,0 +1,2 @@
+These codes is executed under windows environment. Some of the codes are modified to adapt the rule of path under windows. One of the packages which was registered in the requirement.txt is not installed due to it cannot adapt windows.
+In template the test.py will excute with some file under ./Demo_Test/*. There should be exactly five files under the path.
